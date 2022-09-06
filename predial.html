@@ -8,6 +8,7 @@
   <link rel="icon" href="./img/favicon.png">
   <link rel="stylesheet" href="./css/nav.css">
   <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/predial.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
@@ -75,18 +76,25 @@
   </div>
 
   <div class="contenido-pagina">
-    <h1 class="titulo-tramites">Sistema de Tramites</h1>
-    <div class="tramite-item">
-      <div class="tramite-item-texto">
-        <h1>Tramite Predial</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, sed, fuga nobis deleniti fugiat amet
-          perspiciatis illum optio quisquam veritatis architecto dignissimos quidem commodi eius recusandae porro ipsum
-          magni perferendis.</p>
+    <h1 class="titulo-pagina">Predial 2022 tepeapulco</h1>
+    <div class="opciones-predial texto-no-seleccionable">
+      <div class="opcion-predial">
+        <h2 class="titulo-opcion">Consulta de predial</h2>
+        <p class="descripcion-opcion">Consulta el estado de tu predial</p>
       </div>
-      <a href="./predial.html" class="tramite-item-boton">Ir a Tramite</a>
+      <div class="opcion-predial">
+        <h2 class="titulo-opcion">Pago de predial</h2>
+        <p class="descripcion-opcion">Paga tu predial en linea</p>
+      </div>
+    </div>
+    <div class="opcion-a-visualizar">
+
     </div>
   </div>
 
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
   <!-- Integracion iconos -->
   <script src="https://kit.fontawesome.com/06ac8c0d3a.js" crossorigin="anonymous"></script>
@@ -102,11 +110,18 @@
     crossorigin="anonymous"></script>
 
 
-  <!-- Importando la ultima version de Jquerry -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+  <!-- Importando la ultima version de Jquerry completa -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+  <script>
+    console.log("Hola mundo");
+    $(document).ready(function () {
+      //Añadir a el div opcion-a-visualizar el html en la ruta especificada
+      $.get("./predial/consulta.html", function (data) {
+        $(".opcion-a-visualizar").html(data);
+      });
+    });
+  </script>
 
 
   <script>
@@ -118,15 +133,11 @@
       });
     });
 
-
-
     if (window.matchMedia("(min-width: 600px)").matches) {
     } else {
       // eliminar elemento #texte-header de la pagina
       $("#texte-header").remove();
     }
-
-
     window.onscroll = function () {
       myFunction();
     };

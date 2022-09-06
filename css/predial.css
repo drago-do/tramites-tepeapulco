@@ -1,0 +1,80 @@
+.opciones-predial {
+  margin: 30px;
+  margin-bottom: 0;
+  padding: 30px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.opcion-predial {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  border-bottom: none;
+  transition: color 0.5s, background-color 0.5s;
+}
+
+.opcion-predial:hover {
+  background-color: #a61231;
+  color: #fff;
+}
+
+.esta-seleccionado {
+  background-color: #a61231;
+  color: #fff;
+}
+.opcion-a-visualizar {
+  width: 80%;
+}
+
+.apartado {
+  width: 100%;
+  margin: 50px 0;
+}
+.seguimiento-contenido {
+  display: flex;
+  justify-content: space-between;
+}
+
+#folio-consulta {
+  width: 40%;
+}
+
+.boton {
+  margin-left: 10px;
+  background-color: #a61231;
+  width: 20%;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.5s, background-color 0.5s;
+}
+.boton:hover {
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(100, 100, 100, 0.3);
+  color: #a61231;
+  font-weight: bolder;
+}
+
+@media screen and (max-width: 800px) {
+  .seguimiento-contenido {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #folio-consulta {
+    width: 100%;
+  }
+  .boton {
+    margin: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+}

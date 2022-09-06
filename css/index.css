@@ -1,0 +1,47 @@
+.contenido-pagina {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+
+.titulo-tramites {
+  font-size: 4em;
+}
+
+.tramite-item {
+  padding: 10px 15px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.tramite-item-boton {
+  background-color: #a61231;
+  width: 30%;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 1.5em;
+  margin: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.5s, background-color 0.5s;
+}
+.tramite-item-boton:hover {
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(100, 100, 100, 0.3);
+  color: #a61231;
+  text-decoration: none;
+}
+
+.texto-no-seleccionable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -1,0 +1,52 @@
+<div class="apartado">
+  <h2>Seguimiento de tu predial</h2>
+  <div class="seguimiento-contenido">
+    <p>Ingresa tu folio para consultar el estado de tu pago</p>
+    <input type="text" id="folio-consulta" class="form-control" placeholder="Folio de consulta">
+    <button id="boton-consulta" class="boton">Consultar</button>
+  </div>
+</div>
+
+<div class="apartado">
+  <h2>Generar una nueva consulta de predial</h2>
+  <div class="formulario-seguimiento">
+    <form action="consulta.php" method="POST">
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo Electronico</label>
+        <input type="email" class="form-control" id="correo-electronico" placeholder="Escribe tu correo electronico"
+          aria-describedby="ayuda-correo">
+        <div id="ayuda-correo" class="form-text">Opcional, si deseas que llegue la informacion a tu correo..</div>
+      </div>
+      <div class="mb-3">
+        <label for="apellido-p">Apellido Paterno</label>
+        <input type="text" class="form-control" id="apellido-p" placeholder="Apellido Paterno">
+      </div>
+      <div class="mb-3">
+        <label for="apellido-m">Apellido Materno</label>
+        <input type="text" class="form-control" id="apellido-m" placeholder="Apellido Materno">
+      </div>
+      <div class="mb-3">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Nombre o nombres">
+      </div>
+      <div class="mb-3">
+        <label for="calle">Calle</label>
+        <input type="text" class="form-control" id="calle" placeholder="Calle del predial">
+      </div>
+      <div class="mb-3">
+        <label for="colonia">Colonia</label>
+        <input type="text" class="form-control" id="colonia" placeholder="Colonia del predial">
+      </div>
+      <div class="mb-3">
+        <label for="municipio">Municipio</label>
+        <input type="text" class="form-control" id="municipio" placeholder="Municipio del predial">
+      </div>
+      <div class="mb-3">
+        <label for="recibo" class="form-label">Recibo anterior escaneado (Opcional)</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+        <p><input name="subir_archivo" type="file" /></p>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
