@@ -77,11 +77,11 @@
   <div class="contenido-pagina">
     <h1 class="titulo-pagina">Predial 2022 tepeapulco</h1>
     <div class="opciones-predial texto-no-seleccionable">
-      <div class="opcion-predial esta-seleccionado">
+      <div class="opcion-predial " onclick="clickConsulta()">
         <h2 class="titulo-opcion">Consulta de predial</h2>
         <p class="descripcion-opcion">Consulta el estado de tu predial</p>
       </div>
-      <div class="opcion-predial" onclick="clickPago()">
+      <div class="opcion-predial esta-seleccionado">
         <h2 class="titulo-opcion">Pago de predial</h2>
         <p class="descripcion-opcion">Paga tu predial en linea</p>
       </div>
@@ -171,9 +171,9 @@
 
 
   <script>
-    function clickPago() {
-      //Redirigir a la pagina de pagos ./predial/pago.html
-      window.location.href = "./pago.html";
+    function clickConsulta() {
+      //Redirigir a la pagina de consultas ./predial/consulta.html
+      window.location.href = "./consulta.html";
     }
     $(document).ready(function () {
       $('#pmd').hover(function () {

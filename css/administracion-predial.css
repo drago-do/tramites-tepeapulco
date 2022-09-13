@@ -1,0 +1,60 @@
+.lista-de-solicitudes {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(50, 50, 50, 0.3);
+}
+
+.solicitud {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(50, 50, 50, 0.3);
+  border-right: none;
+  border-left: none;
+}
+
+.nombre-y-folio {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.datos-y-botones {
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  align-items: flex-end;
+}
+.datos {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+}
+.botones {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-end;
+}
+.btn {
+  margin: 5px;
+  padding: 5px;
+}
+
+.botones-solicitud {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
