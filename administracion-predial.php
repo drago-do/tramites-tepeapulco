@@ -74,48 +74,77 @@
   </div>
 
 
+
   <div class="lista-de-solicitudes">
+    <h1>Lista de solicitudes de consulta</h1>
     <?php
     require_once './CRUDPHP/crud.php';
     $nuevaConsulta = CrudPHP::singleton();
     $solicitudes = $nuevaConsulta->consultarConsultas();
     //Si no hay solicitudes se muestra un mensaje
     if (empty($solicitudes)) {
-      echo "<h1>No hay solicitudes pendientes</h1>";
+      echo "<h4>No hay solicitudes pendientes</h4>";
     } else {
       foreach ($solicitudes as $solicitud) {
-        echo "<div class='solicitud'>";
-        echo "<div class='nombre-y-folio'>";
-        echo "<p class='nombre' style='font-weight:bolder' >Nombre: " . $solicitud['apellido-p'] . " " . $solicitud['apellido-m'] . " " . $solicitud['nombre'] . "</p>";
-        echo "<p>Folio de solicitud: " . $solicitud['folio'] . "</p>";
-        echo "</div>";
+        if ($solicitud['respuesta_enviada'] == '0') {
+          echo "<div class='solicitud'>";
+          echo "<div class='nombre-y-folio'>";
+          echo "<p class='nombre' style='font-weight:bolder' >Nombre: " . $solicitud['apellido-p'] . " " . $solicitud['apellido-m'] . " " . $solicitud['nombre'] . "</p>";
+          echo "<p>Folio de solicitud: " . $solicitud['folio'] . "</p>";
+          echo "</div>";
 
-        echo "<div class='datos-y-botones'>";
-        echo "<div class='datos'>";
-        echo "<p class='correo'>Correo: " . $solicitud['correo'] . "</p>";
-        echo "<p>Direccion: " . $solicitud['calle'] . ", " . $solicitud['colonia'] . ", " . $solicitud['municipio'] . "</p>";
-        echo "</div>";
-        echo "<div class='botones'>";
-        echo "<button class='btn btn-primary' onClick='verSolicitud(" . $solicitud['folio'] . ")'>Ver solicitud</button>";
-        echo "<button class='btn btn-danger' onClick='eliminarSolicitud(" . $solicitud['folio'] . ")'>Eliminar solicitud</button>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
+          echo "<div class='datos-y-botones'>";
+          echo "<div class='datos'>";
+          echo "<p class='correo'>Correo: " . $solicitud['correo'] . "</p>";
+          echo "<p>Direccion: " . $solicitud['calle'] . ", " . $solicitud['colonia'] . ", " . $solicitud['municipio'] . "</p>";
+          echo "</div>";
+          echo "<div class='botones'>";
+          echo "<button class='btn btn-primary' onClick='verSolicitud(" . $solicitud['folio'] . ")'>Ver solicitud</button>";
+          echo "<button class='btn btn-danger' onClick='eliminarSolicitud(" . $solicitud['folio'] . ")'>Eliminar solicitud</button>";
+          echo "</div>";
+          echo "</div>";
+          echo "</div>";
+        }
       }
     }
     ?>
-    <!-- Modal que muestre los campos de id	
-correo	
-apellido-p	
-apellido-m	
-nombre	
-calle	
-colonia	
-municipio	
-folio	
-adjunto	
-cuenta_predial	
-comentario	  de la tabla solicitud_consulta  el modal se abre al hacer click en el boton verSolicitud()-->
+
+
+    <h1>Lista de solcitudes de pago</h1>
+    <?php
+    require_once './CRUDPHP/crud.php';
+    $nuevaConsulta = CrudPHP::singleton();
+    $pagos = $nuevaConsulta->consultarSolicitudPago();
+    //Si no hay solicitudes se muestra un mensaje
+    if (empty($pagos)) {
+      echo "<h4>No hay solicitudes pendientes</h4>";
+    } else {
+      foreach ($pagos as $pago) {
+        if ($pago['pago_validado'] == '0') {
+          $datosPersonalesPago = $nuevaConsulta->consultarConsultaEspecifica($pago['folio_a_pagar']);
+          echo "<br>";
+          echo "<div class='solicitud'>";
+          echo "<div class='nombre-y-folio'>";
+          echo "<p class='nombre' style='font-weight:bolder' >Nombre: " . $datosPersonalesPago[0]['apellido-p'] . " " . $datosPersonalesPago[0]['apellido-m'] . " " . $datosPersonalesPago[0]['nombre'] . "</p>";
+          echo "<p>Folio de solicitud: " . $datosPersonalesPago[0]['folio'] . "</p>";
+          echo "</div>";
+
+          echo "<div class='datos-y-botones'>";
+          echo "<div class='datos'>";
+          echo "<p class='correo'>Correo: " . $datosPersonalesPago[0]['correo'] . "</p>";
+          echo "<p>Direccion: " . $datosPersonalesPago[0]['calle'] . ", " . $datosPersonalesPago[0]['colonia'] . ", " . $datosPersonalesPago[0]['municipio'] . "</p>";
+          echo "</div>";
+          echo "<div class='botones'>";
+          echo "<button class='btn btn-primary' onClick='verSolicitudPago(" . $datosPersonalesPago[0]['folio'] . ")'>Ver solicitud</button>";
+          echo "<button class='btn btn-danger' onClick='eliminarSolicitud(" . $datosPersonalesPago[0]['folio'] . ")'>Eliminar solicitud</button>";
+          echo "</div>";
+          echo "</div>";
+          echo "</div>";
+        }
+      }
+    }
+
+    ?>
     <div class="modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -155,6 +184,21 @@ comentario	  de la tabla solicitud_consulta  el modal se abre al hacer click en 
       });
     }
 
+    function verSolicitudPago(folio) {
+
+      $.ajax({
+        url: './php/verSolicitudPago.php',
+        type: 'POST',
+        data: {
+          folio: folio
+        },
+        success: function(data) {
+          $('#modal-body-php').html(data);
+          $('.modal').modal('show');
+        }
+      });
+    }
+
     function eliminarSolicitud(folio) {
       $.ajax({
         url: './php/eliminarSolicitud.php',
@@ -171,6 +215,11 @@ comentario	  de la tabla solicitud_consulta  el modal se abre al hacer click en 
     function responderSolicitud(folio) {
       //Redirigir a la pagina responderSolicitud.php enviando el folio de la solicitud como parametro
       window.location.href = "./php/responderSolicitud.php?folio=" + folio;
+    }
+
+    function responderSolicitudPago(folio) {
+      //Redirigir a la pagina responderSolicitud.php enviando el folio de la solicitud como parametro
+      window.location.href = "./php/responderSolicitudPago.php?folio=" + folio;
     }
   </script>
 

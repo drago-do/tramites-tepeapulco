@@ -55,6 +55,17 @@ class CrudPHP
       $e->getMessage();
     }
   }
+  public function consultarSolicitudPago()
+  {
+    try {
+      $query = $this->dbh->prepare("SELECT * FROM solicitud_pago");
+      $query->execute();
+      return $query->fetchAll();
+      $this->dbh = null;
+    } catch (PDOException $e) {
+      $e->getMessage();
+    }
+  }
 
   public function consultarConsultaEspecifica($folio)
   {
@@ -81,10 +92,25 @@ class CrudPHP
       $e->getMessage();
     }
   }
-  public function insertarNuevaConsulta($correo, $apellidoP, $apellidoM, $nombre, $calle, $colonia, $Municipio, $folio, $extencion, $adjunto, $cuenta_predial, $comentario)
+
+  public function consultarPagoEspecifica($folio)
   {
     try {
-      $query = $this->dbh->prepare("INSERT INTO solicitud_consulta VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?)");
+      $query = $this->dbh->prepare("SELECT * FROM respuesta_pago WHERE folio_de_consulta LIKE ?");
+      $query->bindParam(1, $folio);
+      $query->execute();
+      return $query->fetchAll();
+      $this->dbh = null;
+    } catch (PDOException $e) {
+      $e->getMessage();
+    }
+  }
+
+
+  public function insertarNuevaConsulta($correo, $apellidoP, $apellidoM, $nombre, $calle, $colonia, $Municipio, $folio, $extencion, $adjunto, $cuenta_predial, $comentario, $respuesta_enviada)
+  {
+    try {
+      $query = $this->dbh->prepare("INSERT INTO solicitud_consulta VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?)");
       $query->bindParam(1, $correo);
       $query->bindParam(2, $apellidoP);
       $query->bindParam(3, $apellidoM);
@@ -97,6 +123,48 @@ class CrudPHP
       $query->bindParam(10, $adjunto);
       $query->bindParam(11, $cuenta_predial);
       $query->bindParam(12, $comentario);
+      $query->bindParam(13, $respuesta_enviada);
+      $query->execute();
+      return $query->fetchAll();
+      $this->dbh = null;
+    } catch (PDOException $e) {
+      $e->getMessage();
+    }
+  }
+  public function insertarNuevaSolicitudPago($folio_a_pagar, $nombre_comprobante, $extencion, $pago_validado, $mensaje)
+  {
+    try {
+      $query = $this->dbh->prepare("INSERT INTO solicitud_pago VALUES (null,?,?,?,?,?)");
+      $query->bindParam(1, $folio_a_pagar);
+      $query->bindParam(2, $nombre_comprobante);
+      $query->bindParam(3, $extencion);
+      $query->bindParam(4, $pago_validado);
+      $query->bindParam(5, $mensaje);
+      $query->execute();
+      return $query->fetchAll();
+      $this->dbh = null;
+    } catch (PDOException $e) {
+      $e->getMessage();
+    }
+  }
+
+  public function actualizarSolicitud($folio)
+  {
+    try {
+      $query = $this->dbh->prepare("UPDATE solicitud_consulta SET respuesta_enviada = 1 WHERE folio = ?");
+      $query->bindParam(1, $folio);
+      $query->execute();
+      return $query->fetchAll();
+      $this->dbh = null;
+    } catch (PDOException $e) {
+      $e->getMessage();
+    }
+  }
+  public function actualizarSolicitudPago($folio)
+  {
+    try {
+      $query = $this->dbh->prepare("UPDATE solicitud_pago SET pago_validado = 1 WHERE folio_a_pagar = ?");
+      $query->bindParam(1, $folio);
       $query->execute();
       return $query->fetchAll();
       $this->dbh = null;
@@ -109,6 +177,22 @@ class CrudPHP
   {
     try {
       $query = $this->dbh->prepare("INSERT INTO respuesta_consulta VALUES (null,?, ?, ?, ?, ?)");
+      $query->bindParam(1, $folio_de_consulta);
+      $query->bindParam(2, $respuesta);
+      $query->bindParam(3, $adjunto);
+      $query->bindParam(4, $extension);
+      $query->bindParam(5, $folio_archivo_adjunto);
+      $query->execute();
+      return $query->fetchAll();
+      $this->dbh = null;
+    } catch (PDOException $e) {
+      $e->getMessage();
+    }
+  }
+  public function insertarNuevaRespuestaPago($folio_de_consulta, $respuesta, $adjunto, $extension, $folio_archivo_adjunto)
+  {
+    try {
+      $query = $this->dbh->prepare("INSERT INTO respuesta_pago VALUES (null,?, ?, ?, ?, ?)");
       $query->bindParam(1, $folio_de_consulta);
       $query->bindParam(2, $respuesta);
       $query->bindParam(3, $adjunto);

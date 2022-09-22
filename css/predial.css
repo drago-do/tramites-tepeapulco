@@ -27,9 +27,17 @@
   background-color: #a61231;
   color: #fff;
 }
+
 .opcion-a-visualizar {
   width: 90%;
+  padding: 20px;
   border: 1px solid rgba(100, 100, 100, 0.3);
+  border-radius: 15px;
+  border-top: none;
+}
+
+.opciones-menu {
+  width: 90%;
 }
 
 .apartado {

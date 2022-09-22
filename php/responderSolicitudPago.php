@@ -20,6 +20,7 @@
   require_once './../CRUDPHP/crud.php';
   $consulta = CrudPHP::singleton();
   $solicitud = $consulta->consultarConsultaEspecifica($folio);
+  $respuesta = $consulta->consultarRespuestaEspecifica($folio);
   ?>
   <div class="container">
     <h1>Responder a la solicitud de <?php echo $solicitud[0]['nombre']; ?></h1>
@@ -39,10 +40,21 @@
       <p>Comentario: <?php echo $solicitud[0]['comentario']; ?></p>
 
     </div>
-    <h2>Responder solicitud</h2>
-    <form action="./adjuntarRespuesta.php" enctype="multipart/form-data" method="POST">
+    <div>
+      <h1>Respuesta de la solicitud de consulta</h1>
+      <p>Mensaje: <?php echo $respuesta[0]['respuesta'] ?> </p>
+      <?php
+      if ($respuesta[0]['adjunto'] == 1) {
+        echo "<p>Adjunto: <a href='./../archivosRespuesta/" . $respuesta[0]['folio_archivo_adjunto'] . "." . $respuesta[0]['extension'] . "' download>Descargar archivo</a></p>";
+      } else {
+        echo "<p>No se adjunto ningun archivo</p>";
+      }
+      ?>
+    </div>
+    <h2>Responder solicitud de pago</h2>
+    <form action="./adjuntarRespuestaPago.php" enctype="multipart/form-data" method="POST">
       <div class="mb-3">
-        <label for="recibo" class="form-label">Adjuntar archivo (Opcional)</label>
+        <label for="recibo" class="form-label">Adjuntar factura o recibo (Opcional)</label>
         <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
         <p> Enviar mi archivo: <input name="subir_archivo" type="file" /></p>
       </div>

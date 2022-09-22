@@ -12,7 +12,7 @@
   <div class="main container">
     <?php
     require_once './../CRUDPHP/crud.php';
-    $directorio = './../archivosRespuesta/';
+    $directorio = './../respuestaPago/';
     //convertir array $_FILES en json
     $json = json_encode($_FILES);
 

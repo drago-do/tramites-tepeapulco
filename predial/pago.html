@@ -88,10 +88,10 @@
     </div>
     <div class="opcion-a-visualizar">
       <div class="apartado">
-        <h2>Seguimiento de tu predial</h2>
+        <h2>Consulta el documento previamente pagado.</h2>
         <form action="./../php/consultarSolicitud.php">
           <div class="seguimiento-contenido">
-            <p>Ingresa tu folio para consultar el estado de tu pago</p>
+            <p>Ingresa tu folio para consultar tu documento</p>
             <input type="text" name="folio" id="folio-consulta" class="form-control" placeholder="Folio de consulta">
             <button id="boton-consulta" class="boton">Consultar</button>
           </div>
@@ -99,55 +99,30 @@
       </div>
 
       <div class="apartado">
-        <h2>Generar una nueva consulta de predial</h2>
+        <h2>Generar una nueva solicitud de pago</h2>
         <div class="formulario-seguimiento">
-          <form action="./../php/upload.php" enctype="multipart/form-data" method="POST">
+          <form action="./../php/subirSolPago.php" enctype="multipart/form-data" method="POST">
+            <p>Para realizar una solicitud de pago, antes necesitas saber de cuanto es tu deuda. Para esto tendras que
+              ir al apartado de consulta, ingresar tus datos, guardar tu folio y esperar respuesta de la divición XXXX.
+              <br><br>
+              El pago se realizar a la cuenta XXXXXXXXX, una vez realizado el pago, sube tu comprobante de pago y espera
+              a que se verifique tu pago. <br><br>
+
+              En el apartado consulta podras ver el estado de tu solicitud, si esta en proceso o ya fue pagada; si este
+              es el caso, se adjuntara tu comprobante.
+            </p>
             <div class="mb-3">
-              <label for="correo" class="form-label">Correo Electronico</label>
-              <input name="correo" type="email" class="form-control" id="correo-electronico"
-                placeholder="Escribe tu correo electronico" aria-describedby="ayuda-correo">
-              <div id="ayuda-correo" class="form-text">Opcional, si deseas que llegue la informacion a tu correo..</div>
+              <p>Ingresa tu folio para consultar tu documento</p>
+              <input type="text" name="folio" id="folio" class="form-control" placeholder="Folio de consulta" required>
             </div>
             <div class="mb-3">
-              <label for="cuenta_predial">Numero de cuenta predial </label>
-              <input name="cuenta_predial" type="text" class="form-control" id="apellido-p"
-                placeholder="Cuenta predial">
-            </div>
-            <div class="mb-3">
-              <label for="apellido-p">Apellido Paterno del contribuyente</label>
-              <input name="apellido-p" type="text" class="form-control" id="apellido-p" placeholder="Apellido Paterno"
-                required>
-            </div>
-            <div class="mb-3">
-              <label for="apellido-m">Apellido Materno del contribuyente</label>
-              <input name="apellido-m" type="text" class="form-control" id="apellido-m" placeholder="Apellido Materno"
-                required>
-            </div>
-            <div class="mb-3">
-              <label for="nombre">Nombre del contribuyente</label>
-              <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre o nombres" required>
-            </div>
-            <div class="mb-3">
-              <label for="calle">Calle y numero</label>
-              <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle del predial" required>
-            </div>
-            <div class="mb-3">
-              <label for="colonia">Colonia</label>
-              <input name="colonia" type="text" class="form-control" id="colonia" placeholder="Colonia del predial">
-            </div>
-            <div class="mb-3">
-              <label for="municipio">Municipio</label>
-              <input name="municipio" type="text" class="form-control" id="municipio"
-                placeholder="Municipio del predial" required>
-            </div>
-            <div class="mb-3">
-              <label for="recibo" class="form-label">Recibo anterior escaneado (Opcional)</label>
+              <label for="recibo" class="form-label">Comprobante de pago</label>
               <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
-              <p> Enviar mi archivo: <input name="subir_archivo" type="file" /></p>
+              <p> Enviar mi archivo: <input name="subir_archivo" type="file" required /></p>
             </div>
             <div class="mb-3">
-              <label for="comentario">Comentario</label>
-              <input name="comentario" type="text-area" class="form-control" id="comentario"
+              <label for="mensaje">Comentario</label>
+              <input name="mensaje" type="text-area" class="form-control" id="comentario"
                 placeholder="Comentarios adicionales">
             </div>
             <input type="submit" class="boton" value="Enviar formulario" />

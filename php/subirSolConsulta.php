@@ -12,13 +12,11 @@
   <div class="main container">
     <?php
     require_once './../CRUDPHP/crud.php';
-    $directorio = './../archivosRespuesta/';
-    //convertir array $_FILES en json
-    $json = json_encode($_FILES);
+    $directorio = './../archivos/';
+    $folio = date("YmdHis");
 
     //Actualizar la zona horaria de México
     date_default_timezone_set('America/Mexico_City');
-    $folioArchivo = date("YmdHis");
     //Verificar que se haya enviado un archivo y que no haya errores
     if ($_FILES['subir_archivo']['error'] == 0) {
       //Subir archivo
@@ -27,7 +25,7 @@
       //Cambiar el nombre del archivo a "fechaActual"  conservando su extension
       $nombreArchivo = basename($_FILES['subir_archivo']['name']);
       $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-      $nombreArchivo = $folioArchivo . "." . $extension;
+      $nombreArchivo = $folio . "." . $extension;
       // $nombreArchivo = "archivoAdjunto." . $extension;
       rename($subir_archivo, $directorio . $nombreArchivo);
       $adjunto = 1;
@@ -41,19 +39,29 @@
       $adjunto = 0;
     }
 
-    //Obtener los datos del formulario
-    $folioDeConsulta = $_POST['folio'];
-    $respuesta = $_POST['respuesta'];
 
 
-    if (isset($folioDeConsulta) && isset($respuesta)) {
+
+    //Rescatar datos del formulario, nombre, correo, calle, ciudad, estado, codigo postal, mensaje
+    $correo = $_POST['correo'];
+    $apelidoPaterno = $_POST['apellido-p'];
+    $apellidoMaterno = $_POST['apellido-m'];
+    $nombre = $_POST['nombre'];
+    $calle = $_POST['calle'];
+    $colonia = $_POST['colonia'];
+    $municipio = $_POST['municipio'];
+    $cuenta_predial = $_POST['cuenta_predial'];
+    $comentario = $_POST['comentario'];
+
+
+    if (isset($apelidoPaterno) && isset($apellidoMaterno) && isset($nombre) && isset($calle) && isset($colonia) && isset($municipio)) {
+      $consultaRespondida = 0;
       $nuevaConsulta = CrudPHP::singleton();
-      $resultado = $nuevaConsulta->insertarNuevaRespuesta($folioDeConsulta, $respuesta, $adjunto, $extension, $folioArchivo);
-      $resultado2 = $nuevaConsulta->actualizarSolicitud($folioDeConsulta);
-      echo "<h1>Respuesta enviada</h1> <div class='alert alert-secondary' role='alert'>
-      El folio de la consulta respondido es: " . $folioDeConsulta . "
+      $resultado = $nuevaConsulta->insertarNuevaConsulta($correo, $apelidoPaterno, $apellidoMaterno, $nombre, $calle, $colonia, $municipio, $folio, $extension, $adjunto, $cuenta_predial, $comentario, $consultaRespondida);
+      echo "<h1>Consulta enviada</h1> <div class='alert alert-secondary' role='alert'>
+      Tu numero de folio es: " . $folio . "
     </div>
-    <a href='./../administracion-predial.php' class='btn btn-primary'>Regresar</a>";
+    <a href='./../index.html' class='btn btn-primary'>Regresar</a>";
     } else {
       echo " <h1>Error en la consulta</h1> <div class='alert alert-danger' role='alert'>
       Algunos datos no fueron ingresados correctamente.

@@ -15,14 +15,18 @@
 </head>
 
 <body>
-  <?php
-  $folio = $_GET['folio'];
-  require_once './../CRUDPHP/crud.php';
-  $consulta = CrudPHP::singleton();
-  $solicitud = $consulta->consultarConsultaEspecifica($folio);
-  ?>
   <div class="container">
-    <h1>Responder a la solicitud de <?php echo $solicitud[0]['nombre']; ?></h1>
+
+    <?php
+    $folio = $_GET['folio'];
+    require_once './../CRUDPHP/crud.php';
+    $consulta = CrudPHP::singleton();
+    $solicitud = $consulta->consultarConsultaEspecifica($folio);
+    $respuesta = $consulta->consultarRespuestaEspecifica($folio);
+    $respuestaPago = $consulta->consultarPagoEspecifica($folio);
+
+    ?>
+    <h1>Datos de la solicitud de <?php echo $solicitud[0]['nombre']; ?></h1>
     <!-- Mostra informacion de la solicitud -->
     <div class="solicitud">
       <p>Identificador: <?php echo $solicitud[0]['id']; ?></p>
@@ -39,20 +43,36 @@
       <p>Comentario: <?php echo $solicitud[0]['comentario']; ?></p>
 
     </div>
-    <h2>Responder solicitud</h2>
-    <form action="./adjuntarRespuesta.php" enctype="multipart/form-data" method="POST">
-      <div class="mb-3">
-        <label for="recibo" class="form-label">Adjuntar archivo (Opcional)</label>
-        <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
-        <p> Enviar mi archivo: <input name="subir_archivo" type="file" /></p>
-      </div>
-      <div class="mb-3">
-        <label for="respuesta" class="form-label">Respuesta</label>
-        <textarea class="form-control" id="respuesta" rows="3" name="respuesta"></textarea>
-      </div>
-      <input type="hidden" name="folio" value="<?php echo $folio; ?>">
-      <button type="submit" class="btn btn-primary">Enviar respuesta</button>
-    </form>
+    <?php
+    //Si no existe la respuesta se muestra un mensaje
+    if ($respuesta == null) {
+      echo "<h1>Respuesta no encontrada</h1> <div class='alert alert-danger' role='alert'>    No se ha encontrado una respuesta para la consulta con folio: " . $folio . " <br> Consulte de nuevo mas tarde.</div>";
+    } else {
+      $html = "<h2>Respuesta a la solicitud</h2>";
+      $html .= "<div class='respuesta'>";
+      $html .= "<p>Respuesta: " . $respuesta[0]['respuesta'] . "</p>";
+      $html .= "<p>Adjunto de respuesta: ";
+      if ($respuesta[0]['adjunto'] == 1) {
+        $html .= "<a href='./../archivos/" . $respuesta[0]['folio_archivo_adjunto'] . "." . $respuesta[0]['extension'] . "' download>Descargar archivo</a>";
+      } else {
+        $html .= "<p>No se adjunto ningun archivo</p>";
+      }
+      $html .= "</p>";
+      $html .= "<h2>Respuesta de pago</h2>";
+      $html .= "<p>Respuesta: " . $respuestaPago[0]['respuesta'] . "</p>";
+      $html .= "<p>Adjunto de respuesta: ";
+      if ($respuestaPago[0]['adjunto'] == 1) {
+        $html .= "<a href='./../archivos/" . $respuestaPago[0]['folio_archivo_adjunto'] . "." . $respuestaPago[0]['extension'] . "' download>Descargar archivo</a>";
+      } else {
+        $html .= "<p>No se adjunto ningun archivo</p>";
+      }
+      $html .= "</p>";
+      $html .= "</div>";
+      $html .= " <a href='./../index.html' class='btn btn-primary'>Regresar</a>";
+      echo $html;
+    }
+    ?>
+
   </div>
   <br><br><br><br><br><br>
 

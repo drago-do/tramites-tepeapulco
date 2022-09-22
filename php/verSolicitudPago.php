@@ -3,6 +3,7 @@ require_once './../CRUDPHP/crud.php';
 $folio = $_POST['folio'];
 $nuevaConsulta = CrudPHP::singleton();
 $solicitud = $nuevaConsulta->consultarConsultaEspecifica($folio);
+$solicitudPago = $nuevaConsulta->consultarSolicitudPago($folio);
 
 $html = "";
 $html = "<div>";
@@ -20,10 +21,28 @@ if ($solicitud[0]['adjunto'] == 1) {
 }
 $html .= "</p>";
 $html .= "<p>Comentario: " . $solicitud[0]['comentario'] . "</p>";
+$html .= "<h1>Respuesta enviada: </h1>";
+if ($solicitud[0]['respuesta_enviada'] == 1) {
+  $respuesta = $nuevaConsulta->consultarRespuestaEspecifica($folio);
+  $html .= "<p>Respuesta: " . $respuesta[0]['respuesta'] . "</p>";
+  $archivo_adjunto = $respuesta[0]['folio_archivo_adjunto'];
+  $extension = $respuesta[0]['extension'];
+  if ($archivo_adjunto != "") {
+    $html .= "<p>Archivo adjunto: <a href='./../archivos/" . $archivo_adjunto . $extension . "' download>Descargar archivo</a></p>";
+  } else {
+    $html .= "<p>No se adjunto ningun archivo</p>";
+  }
+}
+$html .= "<h1>Solicitud de pago</h1>";
+$html .= "<p>Identificador: " . $solicitudPago[0]['id_pago'] . "</p>";
+$html .= "<p>Enlace a comprobante: <a href='./../comprobantePago/" . $solicitudPago[0]['nombre_comprobante'] . "." . $solicitudPago[0]['extencion'] . "' download>Descargar archivo</a></p>";
+$html .= "<p>Mensaje: " . $solicitudPago[0]['mensaje'] . "</p>";
+
 $html .= "</div>";
 
 $html .= "<div class='botones-solicitud'>";
-$html .= "<button class='btn btn-primary' onClick='responderSolicitud(" . $solicitud[0]['folio'] . ")'>Responder</button>";
+
+$html .= "<button class='btn btn-primary' onClick='responderSolicitudPago(" . $solicitud[0]['folio'] . ")'>Responder</button>";
 $html .= "<button class='btn btn-danger' onClick='eliminarSolicitud(" . $solicitud[0]['folio'] . ")'>Eliminar solicitud</button>";
 $html .= "</div>";
 

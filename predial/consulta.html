@@ -74,18 +74,9 @@
     </nav>
   </div>
 
+
   <div class="contenido-pagina">
     <h1 class="titulo-pagina">Predial 2022 tepeapulco</h1>
-    <div class="opciones-predial texto-no-seleccionable">
-      <div class="opcion-predial esta-seleccionado">
-        <h2 class="titulo-opcion">Consulta de predial</h2>
-        <p class="descripcion-opcion">Consulta el estado de tu predial</p>
-      </div>
-      <div class="opcion-predial" onclick="clickPago()">
-        <h2 class="titulo-opcion">Pago de predial</h2>
-        <p class="descripcion-opcion">Paga tu predial en linea</p>
-      </div>
-    </div>
     <div class="opcion-a-visualizar">
       <div class="apartado">
         <h2>Seguimiento de tu predial</h2>
@@ -97,11 +88,26 @@
           </div>
         </form>
       </div>
+    </div>
 
+    <div class="opciones-menu">
+      <div class="opciones-predial texto-no-seleccionable">
+        <div class="opcion-predial esta-seleccionado">
+          <h2 class="titulo-opcion">Consulta de predial</h2>
+          <p class="descripcion-opcion">Consulta el estado de tu predial</p>
+        </div>
+        <div class="opcion-predial" onclick="clickPago()">
+          <h2 class="titulo-opcion">Pago de predial</h2>
+          <p class="descripcion-opcion">Paga tu predial en linea</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="opcion-a-visualizar">
       <div class="apartado">
         <h2>Generar una nueva consulta de predial</h2>
         <div class="formulario-seguimiento">
-          <form action="./../php/upload.php" enctype="multipart/form-data" method="POST">
+          <form action="./../php/subirSolConsulta.php" enctype="multipart/form-data" method="POST">
             <div class="mb-3">
               <label for="correo" class="form-label">Correo Electronico</label>
               <input name="correo" type="email" class="form-control" id="correo-electronico"
